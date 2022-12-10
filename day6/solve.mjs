@@ -47,3 +47,26 @@ const part1 = data.map((val, id) => {
 })
 
 console.log('🚀part1', part1)
+
+const par2 = data.map((val, id) => {
+	const strs = val.split('')
+	let pastFirst = false
+	let pos = 14
+
+	strs.forEach((val, is) => {
+		const pack = strs.slice(is, is + 14)
+		const dups = pack.filter((val, ip, arr) => {
+			return arr.indexOf(val) !== ip && arr.includes(val)
+		})
+
+		if (dups.length > 0 && !pastFirst) {
+			pos += 1
+		} else {
+			pastFirst = true
+		}
+	})
+
+	return pos
+})
+
+console.log('🚀par2', par2)
