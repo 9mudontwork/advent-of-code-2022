@@ -19,7 +19,12 @@ const procedures = data.reduce((acc, val, i) => {
 }, [])
 
 procedures.forEach(([move, from, to]) => {
-	const tempMove = grids[from].slice(move).reverse()
+	// part 1
+	// const tempMove = grids[from].slice(move).reverse()
+
+	// part 2
+	const tempMove = grids[from].slice(move)
+
 	grids[from].splice(move)
 	grids[to].push(...tempMove)
 })
