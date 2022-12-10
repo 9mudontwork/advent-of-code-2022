@@ -1,7 +1,7 @@
 import fs from 'fs'
 
-const raw = fs.readFileSync('./example-input.txt', 'utf8')
-// const raw = fs.readFileSync('./input.txt', 'utf8')
+// const raw = fs.readFileSync('./example-input.txt', 'utf8')
+const raw = fs.readFileSync('./input.txt', 'utf8')
 const newLineRegex = '\n'
 let data = raw.split(newLineRegex)
 
@@ -18,32 +18,41 @@ data = data.map((val) => {
 
 // console.log('🚀data', data)
 
-const result1 = data.reduce((acc, vals) => {
-	const firstFullStr = []
-	const secondFullStr = []
+const result = data.reduce(
+	(acc, vals) => {
+		const firstFullStr = []
+		const secondFullStr = []
 
-	vals.map((val, i) => {
-		const [onePos, twoPos] = val.map((val) => Number(val))
+		vals.map((val, i) => {
+			const [onePos, twoPos] = val.map((val) => Number(val))
 
-		if (i === 0) {
-			for (let i = onePos; i <= twoPos; i++) {
-				firstFullStr.push(i)
+			if (i === 0) {
+				for (let i = onePos; i <= twoPos; i++) {
+					firstFullStr.push(i)
+				}
 			}
-		}
 
-		if (i === 1) {
-			for (let i = onePos; i <= twoPos; i++) {
-				secondFullStr.push(i)
+			if (i === 1) {
+				for (let i = onePos; i <= twoPos; i++) {
+					secondFullStr.push(i)
+				}
 			}
-		}
-	})
+		})
 
-	const con1 = firstFullStr.every((val) => secondFullStr.includes(val))
-	const con2 = secondFullStr.every((val) => firstFullStr.includes(val))
+		const con1 = firstFullStr.every((val) => secondFullStr.includes(val))
+		const con2 = secondFullStr.every((val) => firstFullStr.includes(val))
 
-	if (con1 | con2) acc += 1
+		if (con1 | con2) acc.part1 += 1
 
-	return acc
-}, 0)
+		const con1Part2 = firstFullStr.some((val) =>
+			secondFullStr.includes(val)
+		)
 
-console.log('result1', result1)
+		if (con1Part2) acc.part2 += 1
+
+		return acc
+	},
+	{ part1: 0, part2: 0 }
+)
+
+console.log('🚀result', result.part1, result.part2)
